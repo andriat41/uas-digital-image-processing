@@ -87,6 +87,8 @@ def create_secret_message(birth_date):
 
   # Memisahkan tanggal, bulan, dan tahun
   day, month, year = map(int, birth_date.split('-'))
+  array = [day, month, year // 100, year % 100] * 3
+  print("Nilai Desimal dari setiap bagian: ", array)
 
   # Mengubah setiap bagian menjadi biner 8-bit
   binary_day = decimal_to_binary(day)
@@ -113,6 +115,7 @@ def decode_secret_message(secret_message):
 
   # Membagi pesan menjadi 4 bagian (hari, bulan, tahun1, tahun2)
   parts = [secret_message[i:i+part_length] for i in range(0, len(secret_message), part_length)]
+  print("Nilai Desimal dari setiap bagian: ", [int(part, 2) for part in parts])
 
   # Mengambil satu set pertama dari setiap bagian (karena diulang 3 kali)
   unique_parts = parts[:4]
@@ -145,6 +148,7 @@ print(f"Pesan rahasia yang akan disisipkan: {secret_message} (total bit: {messag
 encode_image('img/andriat_resized.png', secret_message, 'img/andriat_encoded.png')
 
 binnary_message = decode_image_lsb('img/andriat_encoded.png', message_length)
+print(f"Pesan rahasia dalam bentuk biner: {binnary_message}")
 decoded_message = decode_secret_message(binnary_message)
 print(f"Pesan rahasia yang diekstrak: {decoded_message}")
 
